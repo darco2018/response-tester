@@ -13,6 +13,10 @@
     var pageMarginY = windowHeight - radius; // ?
     var userReactions = [];
 
+    var submitBtn = document.getElementById("submitBtn");
+    var userInput = document.getElementById("userName");
+    var introDiv = document.getElementById("intro");
+    var playground = document.getElementById("playground");
 
     function init() {
         //alert("Starting...");
