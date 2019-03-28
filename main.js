@@ -1,7 +1,7 @@
 (function () {
 
     var totalTime = 0;
-    var noOfTurns = 3;
+    var noOfTurns = 8;
     var userName = "User";
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
@@ -9,7 +9,7 @@
     //var windowWidth = window.innerWidth; // 1600
     //var windowHeight = window.innerHeight; // 731
     var radius = 50; // px
-    
+
     var userReactionsArr = [];
     var startAndEndTime = [];
 
@@ -18,7 +18,7 @@
     var introDiv = document.getElementById("intro");
     var playground = document.getElementById("playground");
 
-    function draw() {       
+    function draw() {
 
         playground.style.width = "95%";
         playground.style.minHeight = (window.innerHeight * 0.75) + "px";
@@ -29,29 +29,41 @@
         startAndEndTime.push(new Date().getTime());
     }
 
-    function getShape(){
+    function getShape() {
         var xyPosition = getCoordinates();
         var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
         var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
+        radius = radius + (Math.floor(Math.random() * 25) + 1);
 
-        var shapeStr = "id='shape' class='" + shapeClass + 
+        var shapeStr = "id='shape' class='" + shapeClass +
             "' style='margin-left:" + xyPosition[0] + "px;" +
-            "margin-top:" + xyPosition[1] + "px; " + 
-            "background-color:" + color + 
+            "margin-top:" + xyPosition[1] + "px; " +
+            "background-color:" + color + "; " +
+            "width:" + radius + "px; " +
+            "height:" + radius + "px; " +
             "'>";
 
         return shapeStr;
     }
 
-    function getCoordinates(){
+    function getCoordinates() {
 
         var coordinates = [];
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
         var xCoord = Math.floor(Math.random() * windowWidth);
         var yCoord = Math.floor(Math.random() * windowHeight);
-        coordinates.push(Math.min(xCoord, windowWidth - ( 3 * radius)));
-        coordinates.push(Math.min(yCoord, windowHeight - (4.75 * radius))); 
+
+        //constraints to keep shape within the inner window - to be improved
+        xCoord = Math.min(xCoord, windowWidth - (3 * radius));
+        yCoord = Math.min(yCoord, windowHeight - (4.75 * radius));      
+        xCoord = xCoord + (radius * 2) > windowWidth ? windowWidth - (2 * radius) : xCoord;
+        yCoord = yCoord + (radius * 2) > windowHeight ? windowHeight - (2 * radius) : yCoord;
+        xCoord = xCoord < 0 ? 0 : xCoord;
+        yCoord = yCoord < 0 ? 0 : yCoord;
+
+        coordinates.push(xCoord);
+        coordinates.push(yCoord);
         return coordinates;
     }
 
@@ -70,7 +82,7 @@
             measureTime();
 
             var pageX = e.pageX;
-            var pageY = e.pageY;            
+            var pageY = e.pageY;
 
             if (userReactionsArr.length < noOfTurns) {
                 play();
@@ -97,11 +109,11 @@
     function measureTime() {
         var reactionTime = Math.abs(startAndEndTime[0] - startAndEndTime[1]);
         userReactionsArr.push(reactionTime);
-        startAndEndTime =[];
+        startAndEndTime = [];
         console.log(userReactionsArr);
     }
 
-    
+
 
     /* Event listeners */
 
