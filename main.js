@@ -144,9 +144,15 @@
     }
 
     playAgainBtn.onclick = function (e) {
-
         init();
         play();
+    }
+
+    newPlayerBtn.onclick = function (e) {
+        init();
+        introDiv.style.display = "initial";
+        playground.innerHTML = "";
+
     }
 
 
