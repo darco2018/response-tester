@@ -23,8 +23,6 @@
 
     function drawCircle() {
 
-
-
         console.log("width: " + windowWidth + ", height" + windowHeight);
 
         var xCoord = Math.floor(Math.random() * windowWidth);
@@ -57,25 +55,34 @@
             //alert("Got it" + pageX + ", " + pageY);
 
 
-            if(userReactionsArr.length < noOfTurns){
+            if (userReactionsArr.length < noOfTurns) {
                 play();
             } else {
                 endGame();
-            }            
+            }
         }
     }
 
-    function endGame(){
-        playground.style.display = "none";
+    function endGame() {
+        var summary = "<div id='stats'><p>Your reaction times:<br></p><p class='numbers'>";        
+        var total;
+        userReactionsArr.forEach(function (time) {
+            totalTime += time;
+            summary += time + "<br>";
+        });
+
+        summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" + 
+         Math.floor(totalTime / noOfTurns)+ "</p></div>";
+        playground.innerHTML = summary;     
     }
 
     function measureTime(end, start) {
         var reactionTime = end - start;
-        userReactionsArr.push(reactionTime);        
+        userReactionsArr.push(reactionTime);
         console.log(start + ", " + end + ", " + reactionTime);
         console.log(userReactionsArr);
 
-        
+
     }
 
 
