@@ -18,21 +18,28 @@
     var introDiv = document.getElementById("intro");
     var playground = document.getElementById("playground");
 
-    function drawCircle() {       
+    function draw() {       
 
-        var xyPosition = getCoordinates();
-
-        var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
-        var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
-
-        var shape = "<div id='shape' class='" + shapeClass + "' style='margin-left:" + xyPosition[0] + "px;" +
-            "margin-top:" + xyPosition[1] + "px; background-color:" + color + "'></div>";
         playground.style.width = "95%";
         playground.style.minHeight = (window.innerHeight * 0.75) + "px";
         playground.innerHTML = shape;
 
         // start time after circle is drawn   
         startAndEndTime.push(new Date().getTime());
+    }
+
+    function getShape(){
+        var xyPosition = getCoordinates();
+        var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
+        var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
+
+        var shapeStr = "id='shape' class='" + shapeClass + 
+            "' style='margin-left:" + xyPosition[0] + "px;" +
+            "margin-top:" + xyPosition[1] + "px; " + 
+            "background-color:" + color + 
+            "'>";
+
+        return shapeStr;
     }
 
     function getCoordinates(){
