@@ -12,9 +12,7 @@
     var pageMarginX = windowWidth - radius; // ?
     var pageMarginY = windowHeight - radius; // ?
     var userReactionsArr = [];
-
-    var startTime;
-    var endTime;
+    var startAndEndTime = [];
 
     var submitBtn = document.getElementById("submitBtn");
     var userInput = document.getElementById("userName");
@@ -36,7 +34,7 @@
         playground.innerHTML = shape;
 
         // start time after circle is drawn   
-        startTime = new Date().getTime();
+        startAndEndTime.push(new Date().getTime());
     }
 
     function getRandomColor() {
@@ -50,12 +48,11 @@
         document.getElementById("shape").onclick = function (e) {
 
             // stop timer as soon as click is detected            
-            endTime = new Date().getTime();
-            measureTime(endTime, startTime);
+            startAndEndTime.push(new Date().getTime());
+            measureTime();
 
             var pageX = e.pageX;
-            var pageY = e.pageY;
-
+            var pageY = e.pageY;            
 
             if (userReactionsArr.length < noOfTurns) {
                 play();
@@ -78,15 +75,12 @@
         playground.innerHTML = summary;
     }
 
-    function measureTime(end, start) {
-        var reactionTime = end - start;
+    function measureTime() {
+        var reactionTime = Math.abs(startAndEndTime[0] - startAndEndTime[1]);
         userReactionsArr.push(reactionTime);
-        console.log(start + ", " + end + ", " + reactionTime);
+        startAndEndTime =[];
         console.log(userReactionsArr);
-
-
     }
-
 
     play();
 
