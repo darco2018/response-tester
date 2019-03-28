@@ -1,7 +1,7 @@
 (function () {
 
     var totalTime = 0;
-    var noOfTurns = 8;
+    var noOfTurns = 3;
     var userName = "User";
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
@@ -22,7 +22,8 @@
 
         playground.style.width = "95%";
         playground.style.minHeight = (window.innerHeight * 0.75) + "px";
-        playground.innerHTML = shape;
+        playground.style.background = "green";
+        playground.innerHTML = "<div " + getShape() + "</div>";
 
         // start time after circle is drawn   
         startAndEndTime.push(new Date().getTime());
@@ -45,17 +46,13 @@
     function getCoordinates(){
 
         var coordinates = [];
-
-        console.log("width: " + window.innerWidth + ", height" + window.innerHeight);
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
         var xCoord = Math.floor(Math.random() * windowWidth);
         var yCoord = Math.floor(Math.random() * windowHeight);
         coordinates.push(Math.min(xCoord, windowWidth - ( 3 * radius)));
         coordinates.push(Math.min(yCoord, windowHeight - (4.75 * radius))); 
-
         return coordinates;
-
     }
 
     function getRandomColor() {
@@ -64,7 +61,7 @@
 
     function play() {
 
-        drawCircle();
+        draw();
 
         document.getElementById("shape").onclick = function (e) {
 
@@ -93,6 +90,7 @@
 
         summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
             Math.floor(totalTime / noOfTurns) + "</p></div>";
+        playground.style.background = "beige";
         playground.innerHTML = summary;
     }
 
@@ -103,7 +101,7 @@
         console.log(userReactionsArr);
     }
 
-    play();
+    
 
     /* Event listeners */
 
@@ -111,7 +109,7 @@
         introDiv.style.display = "none";
         userName = userInput.value;
         alert("Hi " + userName + "! " + instruction);
-
+        play();
     }
 
 
