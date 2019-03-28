@@ -18,25 +18,36 @@
     var introDiv = document.getElementById("intro");
     var playground = document.getElementById("playground");
 
-    function init() {
+    function drawCircle() {
 
-        playground.innerHTML = generateShape();
+        console.log("width: " + windowWidth + ", height" + windowHeight);
+
+        var xCoord = Math.floor(Math.random() * windowWidth);
+        var yCoord = Math.floor(Math.random() * windowHeight);
+        console.log(xCoord + ", " + yCoord);
+
+        var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
+        var shape = "<div id='shape' class='" + shapeClass + "' style='margin-left:" + xCoord + "px;" +
+            "margin-top:" + yCoord + "px'></div>";
+        playground.innerHTML = shape;
+
     }
 
     function generateShape() {
 
-            console.log("width: " + windowWidth + ", height" + windowHeight);
+        drawCircle();
 
-        var xCoord = Math.floor(Math.random() * windowWidth);
-        var yCoord = Math.floor(Math.random() * windowHeight);
-            console.log(xCoord + ", " + yCoord);
-            
-        var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
-        var shape = "<div class='" + shapeClass + "' style='margin-left:" + xCoord + "px;" +
-            "margin-top:" + yCoord + "px'></div>";
-        return shape;
+        document.getElementById("shape").onclick = function (e) {
+            var pageX = e.pageX;
+            var pageY = e.pageY;
+            alert("Got it" + pageX + ", " + pageY);
+            generateShape();
+        }
 
     }
+
+
+    generateShape();
 
     /* Event listeners */
 
@@ -44,9 +55,9 @@
         introDiv.style.display = "none";
         userName = userInput.value;
         alert("Hi " + userName + "! " + instruction);
-        startGame();
+
     }
 
-    init();
+
 
 }());
