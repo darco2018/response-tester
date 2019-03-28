@@ -1,22 +1,33 @@
 (function () {
 
-    var totalTime = 0;
-    var noOfTurns = 8;
-    var userName = "User";
+    // initialized in init()
+    var totalTime;
+    var allowedNoOfTurns;
+    var userName;
+    var userReactionsArr;
+    var startAndEndTime;
+    var radius = 50; // px
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
-    //var windowWidth = window.innerWidth; // 1600
-    //var windowHeight = window.innerHeight; // 731
-    var radius = 50; // px
-
-    var userReactionsArr = [];
-    var startAndEndTime = [];
-
-    var submitBtn = document.getElementById("submitBtn");
+   
+    var submitBtn = document.getElementById("submitName");
     var userInput = document.getElementById("userName");
     var introDiv = document.getElementById("intro");
     var playground = document.getElementById("playground");
+    var buttons = document.getElementById("buttons");
+    var newPlayerBtn = document.getElementById("newPlayer");
+    var playAgainBtn = document.getElementById("playAgain");
+
+    function init(){
+        buttons.style.display = "none";
+
+        totalTime = 0;
+        allowedNoOfTurns = 3;
+        //userName = "User";
+        userReactionsArr = [];
+        startAndEndTime = [];
+    }
 
     function draw() {
 
@@ -84,7 +95,7 @@
             var pageX = e.pageX;
             var pageY = e.pageY;
 
-            if (userReactionsArr.length < noOfTurns) {
+            if (userReactionsArr.length < allowedNoOfTurns) {
                 play();
             } else {
                 endGame();
@@ -101,9 +112,12 @@
         });
 
         summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
-            Math.floor(totalTime / noOfTurns) + "</p></div>";
-        playground.style.background = "beige";
+            Math.floor(totalTime / allowedNoOfTurns) + "</p></div><div id='buttons'></div>";
+        playground.style.background = "green";
         playground.innerHTML = summary;
+
+        buttons.style.display = "initial";      
+        
     }
 
     function measureTime() {
@@ -113,6 +127,11 @@
         console.log(userReactionsArr);
     }
 
+   
+
+
+    init();
+
 
 
     /* Event listeners */
@@ -121,6 +140,12 @@
         introDiv.style.display = "none";
         userName = userInput.value;
         alert("Hi " + userName + "! " + instruction);
+        play();
+    }
+
+    playAgainBtn.onclick = function (e) {
+
+        init();
         play();
     }
 
