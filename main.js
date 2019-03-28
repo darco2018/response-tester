@@ -27,16 +27,20 @@
 
         var xCoord = Math.floor(Math.random() * windowWidth);
         var yCoord = Math.floor(Math.random() * windowHeight);
-        //console.log(xCoord + ", " + yCoord);
 
         var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
+        var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
+
         var shape = "<div id='shape' class='" + shapeClass + "' style='margin-left:" + xCoord + "px;" +
-            "margin-top:" + yCoord + "px'></div>";
+            "margin-top:" + yCoord + "px; background-color:" + color + "'></div>";
         playground.innerHTML = shape;
 
         // start time after circle is drawn   
         startTime = new Date().getTime();
-        console.log("shape drawn: " + startTime);
+    }
+
+    function getRandomColor() {
+        return Math.floor(Math.random() * 256);
     }
 
     function play() {
@@ -47,12 +51,10 @@
 
             // stop timer as soon as click is detected            
             endTime = new Date().getTime();
-            console.log("Shape clicked: " + endTime);
             measureTime(endTime, startTime);
 
             var pageX = e.pageX;
             var pageY = e.pageY;
-            //alert("Got it" + pageX + ", " + pageY);
 
 
             if (userReactionsArr.length < noOfTurns) {
@@ -64,16 +66,16 @@
     }
 
     function endGame() {
-        var summary = "<div id='stats'><p>Your reaction times:<br></p><p class='numbers'>";        
+        var summary = "<div id='stats'><p>Your reaction times:<br></p><p class='numbers'>";
         var total;
         userReactionsArr.forEach(function (time) {
             totalTime += time;
             summary += time + "<br>";
         });
 
-        summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" + 
-         Math.floor(totalTime / noOfTurns)+ "</p></div>";
-        playground.innerHTML = summary;     
+        summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
+            Math.floor(totalTime / noOfTurns) + "</p></div>";
+        playground.innerHTML = summary;
     }
 
     function measureTime(end, start) {
