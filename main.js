@@ -1,16 +1,15 @@
 (function () {
 
     var totalTime = 0;
-    var noOfTurns = 3;
+    var noOfTurns = 8;
     var userName = "User";
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
-    var windowWidth = window.innerWidth; // 1600
-    var windowHeight = window.innerHeight; // 731
-    var radius = 200; // px
-    var pageMarginX = windowWidth - radius; // ?
-    var pageMarginY = windowHeight - radius; // ?
+    //var windowWidth = window.innerWidth; // 1600
+    //var windowHeight = window.innerHeight; // 731
+    var radius = 50; // px
+    
     var userReactionsArr = [];
     var startAndEndTime = [];
 
@@ -19,22 +18,37 @@
     var introDiv = document.getElementById("intro");
     var playground = document.getElementById("playground");
 
-    function drawCircle() {
+    function drawCircle() {       
 
-        console.log("width: " + windowWidth + ", height" + windowHeight);
-
-        var xCoord = Math.floor(Math.random() * windowWidth);
-        var yCoord = Math.floor(Math.random() * windowHeight);
+        var xyPosition = getCoordinates();
 
         var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
         var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
 
-        var shape = "<div id='shape' class='" + shapeClass + "' style='margin-left:" + xCoord + "px;" +
-            "margin-top:" + yCoord + "px; background-color:" + color + "'></div>";
+        var shape = "<div id='shape' class='" + shapeClass + "' style='margin-left:" + xyPosition[0] + "px;" +
+            "margin-top:" + xyPosition[1] + "px; background-color:" + color + "'></div>";
+        playground.style.width = "95%";
+        playground.style.minHeight = (window.innerHeight * 0.75) + "px";
         playground.innerHTML = shape;
 
         // start time after circle is drawn   
         startAndEndTime.push(new Date().getTime());
+    }
+
+    function getCoordinates(){
+
+        var coordinates = [];
+
+        console.log("width: " + window.innerWidth + ", height" + window.innerHeight);
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var xCoord = Math.floor(Math.random() * windowWidth);
+        var yCoord = Math.floor(Math.random() * windowHeight);
+        coordinates.push(Math.min(xCoord, windowWidth - ( 3 * radius)));
+        coordinates.push(Math.min(yCoord, windowHeight - (4.75 * radius))); 
+
+        return coordinates;
+
     }
 
     function getRandomColor() {
