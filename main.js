@@ -21,10 +21,9 @@
 
     function init(){
         buttons.style.display = "none";
-
         totalTime = 0;
-        allowedNoOfTurns = 3;
-        //userName = "User";
+        allowedNoOfTurns = 8;
+        userName = (userName === "" || userName === undefined) ? "Friend" :  userName;
         userReactionsArr = [];
         startAndEndTime = [];
     }
@@ -104,7 +103,7 @@
     }
 
     function endGame() {
-        var summary = "<div id='stats'><p>Your reaction times:<br></p><p class='numbers'>";
+        var summary = "<div id='stats'><p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
         var total;
         userReactionsArr.forEach(function (time) {
             totalTime += time;
@@ -139,6 +138,8 @@
     submitBtn.onclick = function (e) {
         introDiv.style.display = "none";
         userName = userInput.value;
+        userName = (userName === "" || userName === undefined) ? "User" :  userName;
+        userInput.value = "";
         alert("Hi " + userName + "! " + instruction);
         play();
     }
@@ -149,6 +150,7 @@
     }
 
     newPlayerBtn.onclick = function (e) {
+        userName = "newPlayer";
         init();
         introDiv.style.display = "initial";
         playground.innerHTML = "";
