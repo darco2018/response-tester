@@ -1,15 +1,61 @@
 body {
-    background: beige;
-    ;
+    background: url("mosaic.png") ;
+    background-size: 100%;
+    color: beige;
+    font-size: 1.4em;
 }
 
-.rectangle {
+h1 {
+    text-transform: uppercase;
+}
+
+#playground {
+    position: absolute;
+    display: none;
+    top: 175px;
+    left: 10px;
+}
+
+#shape {
+    position: relative;
+    display: none;
+    background-color: red;
     width: 50px;
     height: 50px;
-    background: red;
-    
 }
 
 .rounded {
     border-radius: 50%;
+}
+
+#stats {
+    display: none;
+    width: 300px;
+    height: 300px;
+    margin-top: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.numbers {
+    text-align: right;
+    padding-right: 10px;
+}
+
+#buttons {
+    display: none;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+}
+
+input {
+    height: 1.4rem;
+}
+
+#submitName {
+    height: 1.8rem;
 }
