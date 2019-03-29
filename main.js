@@ -10,7 +10,7 @@
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
-   
+
     var submitBtn = document.getElementById("submitName");
     var userInput = document.getElementById("userName");
     var introDiv = document.getElementById("intro");
@@ -24,64 +24,59 @@
 
     init();
 
-    function init(){
-                
+    function init() {
+
         buttons.style.display = "none";
         totalTime = 0;
         attemptsLimit = 3;
-        userName = (userName === "" || userName === undefined) ? "Friend" :  userName;
+        userName = (userName === "" || userName === undefined) ? "Friend" : userName;
         userReactions = [];
         startAndEndTime = [];
     }
 
     function showShape() {
 
-        setUpPlayground();        
+        setUpPlayground();
         setupShape();
         playground.style.display = "block";
         shape.style.display = "block"; // initial doesnt work 
-        
-        startTimer();       
-    }
 
-   
+        startTimer();
+    }
 
     function endGame() {
-
-        playground.style.display = "none"; 
-        stats.style.display = "block";
-        stats.innerHTML = getSummeryHtml();
-        buttons.style.display = "initial";              
+        playground.style.display = "none";
+        buttons.style.display = "block";
+        stats.innerHTML = getStatistics();
+        stats.style.display = "block";       
     }
-    
+
 
     /* --------------- HELPERS ------------------ */
 
-    function getSummeryHtml(){
+    function getStatistics() {
 
-        var summary = "<p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
-        
-       
+        var statistics = "<p>" + userName + "'s " + "reaction times:<br></p>" +
+            "<p class='numbers'>";
+
         var totalTime = 0; // if you leave it undefined, it can be treated as a string
         userReactions.forEach(function (time) {
             totalTime += time;
-            summary += time + "<br>";
+            statistics += time + " ms<br>";
         });
 
-        console.log("!!! " + totalTime + ", " + attemptsLimit);
+        statistics += "</p><p>" +  userName + "'s " +  "average time:</p>" +
+            "<p class='numbers'>" + Math.floor(totalTime / attemptsLimit) + " ms</p>";
 
-        summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
-            Math.floor(totalTime / attemptsLimit) + "</p>"; 
-
-            return summary;
+        return statistics;
 
     }
 
-    function startTimer(){
+    function startTimer() {
         startAndEndTime.push(new Date().getTime());
     }
 
-    function stopTimer(){
+    function stopTimer() {
         startAndEndTime.push(new Date().getTime());
     }
 
@@ -92,7 +87,7 @@
         console.log(userReactions);
     }
 
-    function setUpPlayground(){
+    function setUpPlayground() {
         playground.style.width = "95%";
         playground.style.minHeight = (window.innerHeight * 0.75) + "px";
     }
@@ -108,23 +103,23 @@
         var windowHeight = window.innerHeight; */
         var xCoord = Math.random() * 900;
         var yCoord = Math.random() * 300;
-       
+
         coordinates.push(xCoord);
         coordinates.push(yCoord);
         return coordinates;
     }
 
-    function setupShape() {      
+    function setupShape() {
 
-        var xyPosition = getCoordinates(); 
+        var xyPosition = getCoordinates();
         var size = Math.floor(Math.random() * 200) + 50;
-        
+
         shape.style.backgroundColor = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
         shape.style.width = size + "px";
         shape.style.height = size + "px"; // nie ma length!
-        shape.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";         
-        shape.style.top = xyPosition[1] + "px"; 
-        shape.style.left = xyPosition[0] + "px";  
+        shape.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+        shape.style.top = xyPosition[1] + "px";
+        shape.style.left = xyPosition[0] + "px";
     }
 
     /* ---------------------- Event listeners ----------------- */
@@ -133,7 +128,7 @@
         introDiv.style.display = "none";
 
         userName = userInput.value;
-        userName = (userName === "" || userName === undefined) ? "User" :  userName;
+        userName = (userName === "" || userName === undefined) ? "User" : userName;
         userInput.value = "";
         alert("Hi " + userName + "! " + instruction);
 
@@ -159,7 +154,7 @@
     }
 
     newPlayerBtn.onclick = function (e) {
-        
+
 
     }
 
