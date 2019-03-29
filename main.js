@@ -48,30 +48,34 @@
 
     function endGame() {
 
-        alert("Game over");
+        playground.style.display = "none"; 
+        stats.style.display = "block";
+        stats.innerHTML = getSummeryHtml();
+        buttons.style.display = "initial";              
+    }
+    
 
-        playground.style.background = "green";
+    /* --------------- HELPERS ------------------ */
 
-        var summary = "<div id='stats'><p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
-        var totalTime;
+    function getSummeryHtml(){
+
+        var summary = "<p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
+        
+       
+        var totalTime = 0; // if you leave it undefined, it can be treated as a string
         userReactions.forEach(function (time) {
             totalTime += time;
             summary += time + "<br>";
         });
 
+        console.log("!!! " + totalTime + ", " + attemptsLimit);
+
         summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
-            Math.floor(totalTime / attemptsLimit) + "</p></div><div id='buttons'></div>";
-       
-        stats.innerHTML = summary;
+            Math.floor(totalTime / attemptsLimit) + "</p>"; 
 
-        buttons.style.display = "initial";      
-        
+            return summary;
+
     }
-
-
-    
-
-    /* --------------- HELPERS ------------------ */
 
     function startTimer(){
         startAndEndTime.push(new Date().getTime());
