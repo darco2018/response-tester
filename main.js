@@ -6,7 +6,7 @@
     var userName;
     var userReactionsArr;
     var startAndEndTime;
-    var radius = 50; // px
+    var shapeWidth = 100; // px
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
@@ -18,81 +18,37 @@
     var buttons = document.getElementById("buttons");
     var newPlayerBtn = document.getElementById("newPlayer");
     var playAgainBtn = document.getElementById("playAgain");
+    var shape = document.getElementById("shape");
+    var stats = document.getElementById("stats");
+
+
+    init();
 
     function init(){
+                
         buttons.style.display = "none";
         totalTime = 0;
-        allowedNoOfTurns = 8;
+        allowedNoOfTurns = 3;
         userName = (userName === "" || userName === undefined) ? "Friend" :  userName;
         userReactionsArr = [];
         startAndEndTime = [];
     }
 
-    function draw() {
+    function play() {
 
-        playground.style.width = "95%";
-        playground.style.minHeight = (window.innerHeight * 0.75) + "px";
-        playground.style.background = "green";
-        playground.innerHTML = "<div " + getShape() + "</div>";
+        setUpPlayground();        
+        setupShape();
+        playground.style.display = "block";
+        shape.style.display = "block"; // initial doesnt work
 
         // start time after circle is drawn   
         startAndEndTime.push(new Date().getTime());
-    }
 
-    function getShape() {
-        var xyPosition = getCoordinates();
-        var shapeClass = (Math.floor(Math.random() * 2) === 0) ? "rectangle" : "rectangle rounded";
-        var color = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
-        radius = radius + (Math.floor(Math.random() * 25) + 1);
-
-        var shapeStr = "id='shape' class='" + shapeClass +
-            "' style='margin-left:" + xyPosition[0] + "px;" +
-            "margin-top:" + xyPosition[1] + "px; " +
-            "background-color:" + color + "; " +
-            "width:" + radius + "px; " +
-            "height:" + radius + "px; " +
-            "'>";
-
-        return shapeStr;
-    }
-
-    function getCoordinates() {
-
-        var coordinates = [];
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var xCoord = Math.floor(Math.random() * windowWidth);
-        var yCoord = Math.floor(Math.random() * windowHeight);
-
-        //constraints to keep shape within the inner window - to be improved
-        xCoord = Math.min(xCoord, windowWidth - (3 * radius));
-        yCoord = Math.min(yCoord, windowHeight - (4.75 * radius));      
-        xCoord = xCoord + (radius * 2) > windowWidth ? windowWidth - (2 * radius) : xCoord;
-        yCoord = yCoord + (radius * 2) > windowHeight ? windowHeight - (2 * radius) : yCoord;
-        xCoord = xCoord < 0 ? 0 : xCoord;
-        yCoord = yCoord < 0 ? 0 : yCoord;
-
-        coordinates.push(xCoord);
-        coordinates.push(yCoord);
-        return coordinates;
-    }
-
-    function getRandomColor() {
-        return Math.floor(Math.random() * 256);
-    }
-
-    function play() {
-
-        draw();
-
-        document.getElementById("shape").onclick = function (e) {
+        document.getElementById("shape").onclick = function () {
 
             // stop timer as soon as click is detected            
             startAndEndTime.push(new Date().getTime());
             measureTime();
-
-            var pageX = e.pageX;
-            var pageY = e.pageY;
 
             if (userReactionsArr.length < allowedNoOfTurns) {
                 play();
@@ -102,9 +58,14 @@
         }
     }
 
+   
+
     function endGame() {
+
+        playground.style.background = "green";
+
         var summary = "<div id='stats'><p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
-        var total;
+        var totalTime;
         userReactionsArr.forEach(function (time) {
             totalTime += time;
             summary += time + "<br>";
@@ -112,8 +73,8 @@
 
         summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
             Math.floor(totalTime / allowedNoOfTurns) + "</p></div><div id='buttons'></div>";
-        playground.style.background = "green";
-        playground.innerHTML = summary;
+       
+        stats.innerHTML = summary;
 
         buttons.style.display = "initial";      
         
@@ -126,34 +87,66 @@
         console.log(userReactionsArr);
     }
 
-   
+    
 
+    /* --------------- HELPERS ------------------ */
 
-    init();
+    function setUpPlayground(){
+        playground.style.width = "95%";
+        playground.style.minHeight = (window.innerHeight * 0.75) + "px";
+    }
 
+    function getRandomColor() {
+        return Math.floor(Math.random() * 256);
+    }
 
+    function getCoordinates() {
 
-    /* Event listeners */
+        var coordinates = [];
+        /* var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight; */
+        var xCoord = Math.random() * 900;
+        var yCoord = Math.random() * 300;
+       
+        coordinates.push(xCoord);
+        coordinates.push(yCoord);
+        return coordinates;
+    }
+
+    function setupShape() {      
+
+        var xyPosition = getCoordinates(); 
+        var size = Math.floor(Math.random() * 200) + 50;
+        
+        shape.style.backgroundColor = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
+        shape.style.width = size + "px";
+        shape.style.height = size + "px"; // nie ma length!
+        shape.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";         
+        shape.style.top = xyPosition[1] + "px"; 
+        shape.style.left = xyPosition[0] + "px";  
+    }
+
+    /* ---------------------- Event listeners ----------------- */
 
     submitBtn.onclick = function (e) {
         introDiv.style.display = "none";
+
         userName = userInput.value;
         userName = (userName === "" || userName === undefined) ? "User" :  userName;
         userInput.value = "";
         alert("Hi " + userName + "! " + instruction);
+
         play();
     }
 
     playAgainBtn.onclick = function (e) {
+        document.getElementById("stats").style.display = "none";
         init();
         play();
     }
 
     newPlayerBtn.onclick = function (e) {
-        userName = "newPlayer";
-        init();
-        introDiv.style.display = "initial";
-        playground.innerHTML = "";
+        
 
     }
 
