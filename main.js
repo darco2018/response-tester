@@ -1,12 +1,10 @@
 (function () {
 
     // initialized in init()
-    var totalTime;
     var attemptsLimit;
     var userName;
     var userReactions;
     var startAndEndTime;
-    var shapeWidth = 100; // px
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
@@ -99,7 +97,7 @@
         var coordinates = [];
         /* var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight; */
-        var xCoord = Math.random() * 900;
+        var xCoord = Math.random() * 1100;
         var yCoord = Math.random() * 300;
 
         coordinates.push(xCoord);
@@ -109,7 +107,7 @@
 
     function setupShape() {
         var xyPosition = getCoordinates();
-        var size = Math.floor(Math.random() * 200) + 50;
+        var size = Math.floor(Math.random() * 100) + 50;
 
         shapeDiv.style.backgroundColor = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
         shapeDiv.style.width = size + "px";
