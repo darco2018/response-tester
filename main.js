@@ -25,17 +25,15 @@
     init();
 
     function init() {
-
         buttons.style.display = "none";
         totalTime = 0;
-        attemptsLimit = 1;
+        attemptsLimit = 8;
         userName = (userName === "" || userName === undefined) ? "Friend" : userName;
         userReactions = [];
         startAndEndTime = [];
     }
 
     function showShape() {
-
         setUpPlayground();
         setupShape();
         playground.style.display = "block";
@@ -110,7 +108,6 @@
     }
 
     function setupShape() {
-
         var xyPosition = getCoordinates();
         var size = Math.floor(Math.random() * 200) + 50;
 
@@ -136,7 +133,6 @@
     }
 
     shapeDiv.onclick = function () {
-
         stopTimer();
         recordReactionTime();
 
@@ -148,7 +144,8 @@
     }
 
     playAgainBtn.onclick = function (e) {
-        document.getElementById("stats").style.display = "none";       
+        document.getElementById("stats").style.display = "none";    
+        init();   
         showShape();
     }
 
