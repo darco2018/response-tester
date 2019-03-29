@@ -2,9 +2,9 @@
 
     // initialized in init()
     var totalTime;
-    var allowedNoOfTurns;
+    var attemptsLimit;
     var userName;
-    var userReactionsArr;
+    var userReactions;
     var startAndEndTime;
     var shapeWidth = 100; // px
     var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
@@ -28,51 +28,39 @@
                 
         buttons.style.display = "none";
         totalTime = 0;
-        allowedNoOfTurns = 3;
+        attemptsLimit = 3;
         userName = (userName === "" || userName === undefined) ? "Friend" :  userName;
-        userReactionsArr = [];
+        userReactions = [];
         startAndEndTime = [];
     }
 
-    function play() {
+    function showShape() {
 
         setUpPlayground();        
         setupShape();
         playground.style.display = "block";
-        shape.style.display = "block"; // initial doesnt work
-
-        // start time after circle is drawn   
-        startAndEndTime.push(new Date().getTime());
-
-        document.getElementById("shape").onclick = function () {
-
-            // stop timer as soon as click is detected            
-            startAndEndTime.push(new Date().getTime());
-            measureTime();
-
-            if (userReactionsArr.length < allowedNoOfTurns) {
-                play();
-            } else {
-                endGame();
-            }
-        }
+        shape.style.display = "block"; // initial doesnt work 
+        
+        startTimer();       
     }
 
    
 
     function endGame() {
 
+        alert("Game over");
+
         playground.style.background = "green";
 
         var summary = "<div id='stats'><p>" + userName + "'s "+ "reaction times:<br></p><p class='numbers'>";
         var totalTime;
-        userReactionsArr.forEach(function (time) {
+        userReactions.forEach(function (time) {
             totalTime += time;
             summary += time + "<br>";
         });
 
         summary += "</p><p>Your average time:</p>" + "<p class='numbers'>" +
-            Math.floor(totalTime / allowedNoOfTurns) + "</p></div><div id='buttons'></div>";
+            Math.floor(totalTime / attemptsLimit) + "</p></div><div id='buttons'></div>";
        
         stats.innerHTML = summary;
 
@@ -80,16 +68,25 @@
         
     }
 
-    function measureTime() {
-        var reactionTime = Math.abs(startAndEndTime[0] - startAndEndTime[1]);
-        userReactionsArr.push(reactionTime);
-        startAndEndTime = [];
-        console.log(userReactionsArr);
-    }
 
     
 
     /* --------------- HELPERS ------------------ */
+
+    function startTimer(){
+        startAndEndTime.push(new Date().getTime());
+    }
+
+    function stopTimer(){
+        startAndEndTime.push(new Date().getTime());
+    }
+
+    function recordReactionTime() {
+        var reaction = Math.abs(startAndEndTime[0] - startAndEndTime[1]);
+        userReactions.push(reaction);
+        startAndEndTime = [];
+        console.log(userReactions);
+    }
 
     function setUpPlayground(){
         playground.style.width = "95%";
@@ -136,19 +133,33 @@
         userInput.value = "";
         alert("Hi " + userName + "! " + instruction);
 
-        play();
+        showShape();
+    }
+
+    shape.onclick = function () {
+
+        stopTimer();
+        recordReactionTime();
+
+        if (userReactions.length < attemptsLimit) {
+            showShape();
+        } else {
+            endGame();
+        }
     }
 
     playAgainBtn.onclick = function (e) {
         document.getElementById("stats").style.display = "none";
         init();
-        play();
+        showShape();
     }
 
     newPlayerBtn.onclick = function (e) {
         
 
     }
+
+
 
 
 
