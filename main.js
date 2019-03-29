@@ -5,7 +5,7 @@
     var userName;
     var userReactions;
     var startAndEndTime;
-    var instruction = "Sprawdź swoj czas reakcji. Program wyświetli ci po kolei " +
+    var instruction = "Sprawdź swój refleks. Program wyświetli Ci po kolei " +
         "8 figur geometrycznych. Twoim zadaniem jest na każdą figurę jak najszybciej kliknąć. " +
         "Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób. Gdy zamkniesz to okienko, gra się ropocznie!";
 
@@ -26,7 +26,7 @@
         buttons.style.display = "none";
         totalTime = 0;
         attemptsLimit = 8;
-        userName = (userName === "" || userName === undefined) ? "Friend" : userName;
+        userName = (userName === "" || userName === undefined) ? "Nieznajomy" : userName;
         userReactions = [];
         startAndEndTime = [];
     }
@@ -52,7 +52,7 @@
 
     function getStatistics() {
 
-        var statistics = "<p>" + userName + "'s " + "reaction times:<br></p>" +
+        var statistics = "<p>" + userName + " - oto Twoje " + "czasy reakcji:<br></p>" +
             "<p class='numbers'>";
 
         var totalTime = 0; // if you leave it undefined, it can be treated as a string
@@ -61,7 +61,7 @@
             statistics += time + " ms<br>";
         });
 
-        statistics += "</p><p>" +  userName + "'s " +  "average time:</p>" +
+        statistics += "</p><p>" +  userName + " - oto Twój " +  "średni czas reakcji:</p>" +
             "<p class='numbers'>" + Math.floor(totalTime / attemptsLimit) + " ms</p>";
 
         return statistics;
@@ -123,9 +123,9 @@
         introDiv.style.display = "none";
 
         userName = userInput.value;
-        userName = (userName === "" || userName === undefined) ? "User" : userName;
+        userName = (userName === "" || userName === undefined) ? "Nieznajomy" : userName;
         userInput.value = "";
-        alert("Hi " + userName + "! " + instruction);
+        alert("Witaj " + userName + "! " + instruction);
 
         showShape();
     }
