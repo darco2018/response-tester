@@ -18,7 +18,7 @@
     var buttons = document.getElementById("buttons");
     var newPlayerBtn = document.getElementById("newPlayer");
     var playAgainBtn = document.getElementById("playAgain");
-    var shape = document.getElementById("shape");
+    var shapeDiv = document.getElementById("shape");
     var stats = document.getElementById("stats");
 
 
@@ -28,7 +28,7 @@
 
         buttons.style.display = "none";
         totalTime = 0;
-        attemptsLimit = 3;
+        attemptsLimit = 1;
         userName = (userName === "" || userName === undefined) ? "Friend" : userName;
         userReactions = [];
         startAndEndTime = [];
@@ -39,7 +39,7 @@
         setUpPlayground();
         setupShape();
         playground.style.display = "block";
-        shape.style.display = "block"; // initial doesnt work 
+        shapeDiv.style.display = "block"; // initial doesnt work 
 
         startTimer();
     }
@@ -114,12 +114,12 @@
         var xyPosition = getCoordinates();
         var size = Math.floor(Math.random() * 200) + 50;
 
-        shape.style.backgroundColor = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
-        shape.style.width = size + "px";
-        shape.style.height = size + "px"; // nie ma length!
-        shape.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
-        shape.style.top = xyPosition[1] + "px";
-        shape.style.left = xyPosition[0] + "px";
+        shapeDiv.style.backgroundColor = "rgb(" + getRandomColor() + ", " + getRandomColor() + ", " + getRandomColor() + ")";
+        shapeDiv.style.width = size + "px";
+        shapeDiv.style.height = size + "px"; // nie ma length!
+        shapeDiv.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+        shapeDiv.style.top = xyPosition[1] + "px";
+        shapeDiv.style.left = xyPosition[0] + "px";
     }
 
     /* ---------------------- Event listeners ----------------- */
@@ -135,7 +135,7 @@
         showShape();
     }
 
-    shape.onclick = function () {
+    shapeDiv.onclick = function () {
 
         stopTimer();
         recordReactionTime();
@@ -148,18 +148,14 @@
     }
 
     playAgainBtn.onclick = function (e) {
-        document.getElementById("stats").style.display = "none";
-        init();
+        document.getElementById("stats").style.display = "none";       
         showShape();
     }
 
     newPlayerBtn.onclick = function (e) {
-
-
+        stats.style.display = "none";
+        introDiv.style.display = "block";
+        init();       
     }
-
-
-
-
 
 }());
