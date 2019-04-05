@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="no-js" lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <title>Mistrz refleksu</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/main.css" />
+
+        <meta name="theme-color" content="#fafafa" />
+    </head>
+
+    <body>
+        <!--[if IE]>
+            <p class="browserupgrade">
+                You are using an <strong>outdated</strong> browser. Please
+                <a href="https://browsehappy.com/">upgrade your browser</a> to
+                improve your experience and security.
+            </p>
+        <![endif]-->
+
+        <header>
+            <h1>mistrz refleksu</h1>
+            <div id="intro">
+                <p>Sprawdź swój czas reakcji.</p>
+                <p>Wpisz imię, którego będziesz używał: </p>
+                <input type="text" id="userName">
+                <input type="submit" id="submitName" value="OK"></button>
+            </div>
+        </header>
+        <main>
+            <div id="playground">
+                <div id="shape"></div>
+            </div>
+            <div id="buttons">
+                <button id='playAgain'>Jeszcze raz</button>
+                <button id='newPlayer'>Nowy gracz</button>
+            </div>
+            <div id="stats"></div>
+        </main>
+
+
+
+
+
+        
+            <script src="js/plugins.js"></script>
+            <script src="js/main.js"></script>
+
+            <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+            <script>
+                window.ga = function() {
+                    ga.q.push(arguments);
+                };
+                ga.q = [];
+                ga.l = +new Date();
+                ga("create", "UA-XXXXX-Y", "auto");
+                ga("set", "transport", "beacon");
+                ga("send", "pageview");
+            </script>
+            <script
+                src="https://www.google-analytics.com/analytics.js"
+                async
+                defer
+            ></script>
+        </p>
+    </body>
+</html>
