@@ -73,3 +73,15 @@ input {
   margin: 0 auto;
   border: 2px solid black;
 }
+
+.bottom-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 1%;
+  right: 50%;
+  text-align: center;
+  font-weight: normal;
+  font-size: 50%;
+  margin-top: 3rem;
+}

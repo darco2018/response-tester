@@ -5,7 +5,7 @@ import "../css/main.scss";
 (function responseTester() {
   //  initialized in init
   let firstPlayer = true;
-  const attemptsLimit = 3;
+  const attemptsPerRound = 8;
   let userName = "";
   let userReactions = [];
   let startAndEndTime = [];
@@ -75,7 +75,7 @@ import "../css/main.scss";
       statistics += `${time} ms<br>`;
     });
 
-    const average = Math.floor(totalTime / attemptsLimit);
+    const average = Math.floor(totalTime / attemptsPerRound);
     statistics += `<p>Średni czas reakcji:</p><p class='numbers'>${average} ms</p>`;
     currentPlayer.setRecord(average);
 
@@ -183,7 +183,7 @@ import "../css/main.scss";
     stopTimer();
     recordReactionTime();
 
-    if (userReactions.length < attemptsLimit) {
+    if (userReactions.length < attemptsPerRound) {
       startGame();
     } else {
       endGame();
