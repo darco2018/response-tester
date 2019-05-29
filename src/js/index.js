@@ -6,10 +6,10 @@ import "../css/main.scss";
   //  initialized in init
   let firstPlayer = true;
   const attemptsLimit = 3;
-  let userName;
-  let userReactions;
-  let startAndEndTime;
-  let currentPlayer;
+  let userName = "";
+  let userReactions = [];
+  let startAndEndTime = [];
+  let currentPlayer = null;
   const instruction =
     "Sprawdź swój refleks. Zobaczysz 8 figur geometrycznych. Twoim zadaniem jest każdą figurę jak najszybciej kliknąć. Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób.";
 
