@@ -1,11 +1,11 @@
 /** @format */
-
 /* eslint-disable no-use-before-define, func-names */
+import "../css/main.scss";
 
 (function responseTester() {
   //  initialized in init
   let firstPlayer = true;
-  const attemptsLimit = 3;
+  const attemptsLimit = 8;
   let userName;
   let userReactions;
   let startAndEndTime;
@@ -119,16 +119,19 @@
 
     shapeDiv.style.backgroundColor = `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
     shapeDiv.style.width = `${size}px`;
-    shapeDiv.style.height = `${size}px`; // nie ma length!
+    shapeDiv.style.height = `${size}px`;
     shapeDiv.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
     shapeDiv.style.top = `${xyPosition[1]}px`;
     shapeDiv.style.left = `${xyPosition[0]}px`;
-    shapeDiv.style.display = "block"; // initial doesnt work
+    shapeDiv.style.display = "block";
   }
 
-  /* ---------------------- Event listeners ----------------- */
+  function hideStats() {
+    gameEndBtns.style.display = "none";
+    document.getElementById("stats").style.display = "none";
+  }
 
-  submitNameBtn.onclick = function(e) {
+  function processNameInput() {
     introDiv.style.display = "none";
     userName = userInput.value;
     userName =
@@ -139,6 +142,19 @@
       instrPara.textContent = `Witaj ${userName}! ${instruction}`;
     } else {
       startGame();
+    }
+  }
+
+  /* ---------------------- Event listeners ----------------- */
+
+  submitNameBtn.onclick = function() {
+    processNameInput();
+  };
+
+  userInput.onkeypress = function(e) {
+    const key = e.which || e.keyCode;
+    if (key === 13) {
+      processNameInput();
     }
   };
 
@@ -152,11 +168,6 @@
       endGame();
     }
   };
-
-  function hideStats() {
-    gameEndBtns.style.display = "none";
-    document.getElementById("stats").style.display = "none";
-  }
 
   playAgainBtn.onclick = function(e) {
     hideStats();

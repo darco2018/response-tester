@@ -18,7 +18,7 @@ const commonConfig = merge([
       index: "./src/js/index.js",
     },
     output: {
-      filename: path.join("js", "[name]-[hash].js"),
+      filename: path.join("assets/js", "[name]-[hash].js"),
       path: path.resolve(__dirname, PATHS.dist),
       // publicPath: PATHS.dist
     },
@@ -55,14 +55,22 @@ const productionConfig = merge([
   parts.loadImages({
     options: {
       limit: 5000,
-      name: path.join("img", "[name].[ext]"),
+      name: path.join("assets/img", "[name].[ext]"),
     },
   }),
   parts.copyRootFiles({
     context: PATHS.app,
     from: "**/*",
     to: PATHS.dist,
-    ignore: ["css/*", "js/*", "img/*", "**/*.html", "private/*", "notes.txt"],
+    ignore: [
+      "css/*",
+      "js/*",
+      "img/*",
+      "**/*index.html",
+      "private/*",
+      "scripts/*",
+      "notes.txt",
+    ],
   }),
   /*  parts.copyVendorJs({
     context: PATHS.app,
