@@ -1,0 +1,75 @@
+body {
+  /* /dist/css/img/mosaic.png */
+  background: url("../img/mosaic.png");
+  background-size: 100%;
+  color: beige;
+  font-size: 1.4em;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#intro {
+  text-align: center;
+}
+
+#playground {
+  position: absolute;
+  display: none;
+  top: 175px;
+  left: 10px;
+}
+
+#shape {
+  position: relative;
+  display: none;
+  background-color: red;
+  width: 50px;
+  height: 50px;
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
+#stats {
+  display: none;
+  width: 300px;
+  height: 300px;
+  margin-top: 15px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.numbers {
+  text-align: right;
+  padding-right: 10px;
+}
+
+#gameEndBtns {
+  display: none;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+}
+
+input {
+  height: 1.4rem;
+}
+
+#submitName {
+  height: 1.8rem;
+}
+
+#instruction-box {
+  text-align: center;
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  border: 2px solid black;
+}

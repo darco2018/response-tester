@@ -5,10 +5,11 @@ import "../css/main.scss";
 (function responseTester() {
   //  initialized in init
   let firstPlayer = true;
-  const attemptsLimit = 8;
+  const attemptsLimit = 3;
   let userName;
   let userReactions;
   let startAndEndTime;
+  let currentPlayer;
   const instruction =
     "Sprawdź swój refleks. Zobaczysz 8 figur geometrycznych. Twoim zadaniem jest każdą figurę jak najszybciej kliknąć. Na koniec gry zobaczysz swoje czasy reakcji i średnią wszystkich prób.";
 
@@ -24,6 +25,18 @@ import "../css/main.scss";
   const instrDiv = document.getElementById("instruction-box");
   const instrPara = document.getElementById("instruction");
   const startBtn = document.getElementById("startBtn");
+
+  const players = [];
+
+  function Player(name, record) {
+    this.name = name;
+    this.record = record;
+    this.setRecord = candidate => {
+      if (candidate < this.record) {
+        this.record = candidate;
+      }
+    };
+  }
 
   function init() {
     clearData();
@@ -62,12 +75,17 @@ import "../css/main.scss";
       statistics += `${time} ms<br>`;
     });
 
-    statistics +=
-      `</p><p>Oto Twój ` +
-      "średni czas reakcji:</p>" +
-      `<p class='numbers'>${Math.floor(totalTime / attemptsLimit)} ms</p>`;
+    const average = Math.floor(totalTime / attemptsLimit);
+    statistics += `<p>Średni czas reakcji:</p><p class='numbers'>${average} ms</p>`;
+    currentPlayer.setRecord(average);
 
-    return statistics;
+    let records = "";
+    console.log(players);
+    players.forEach(p => {
+      records += `<span>${p.name}'s record: ${p.record}<br></span>`;
+    });
+
+    return `<p>${records}</p>${statistics}`;
   }
 
   function startTimer() {
@@ -136,6 +154,9 @@ import "../css/main.scss";
     userName = userInput.value;
     userName =
       userName === "" || userName === undefined ? "Nieznajomy" : userName;
+    const player = new Player(userName, 100000);
+    currentPlayer = player;
+    players.push(currentPlayer);
     userInput.value = "";
     setUpPlayground();
     if (firstPlayer) {
