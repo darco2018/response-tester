@@ -64,7 +64,7 @@ const productionConfig = merge([
     to: PATHS.dist,
     ignore: [
       "css/*",
-      "js/*",
+      "js/**",
       "img/*",
       "**/*index.html",
       "private/*",
@@ -72,11 +72,11 @@ const productionConfig = merge([
       "notes.txt",
     ],
   }),
-  /*  parts.copyVendorJs({
+  parts.copyVendorJs({
     context: PATHS.app,
-    from: "/home/ustrd/Documents/javascript-projects/modernizr-3.7.1.min.js",
-    to: "js/vendor",
-  }), */
+    from: "js/vendor",
+    to: "assets/js/vendor",
+  }),
 ]);
 
 /* The loadImages() configuration defaults to url-loader during development and uses both url-loader and file-loader in production 
